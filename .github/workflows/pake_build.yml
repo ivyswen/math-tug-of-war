@@ -16,17 +16,14 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == matrix.platform }}
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            platform: windows
-          - os: macos-latest
-            platform: macos
-          - os: ubuntu-latest
-            platform: linux
+      matrix: ${{ fromJSON(
+        github.event.inputs.platform == 'all' && '{"include":[{"os":"windows-latest","platform":"windows"},{"os":"macos-latest","platform":"macos"},{"os":"ubuntu-latest","platform":"linux"}]}' ||
+        github.event.inputs.platform == 'windows' && '{"include":[{"os":"windows-latest","platform":"windows"}]}' ||
+        github.event.inputs.platform == 'macos' && '{"include":[{"os":"macos-latest","platform":"macos"}]}' ||
+        '{"include":[{"os":"ubuntu-latest","platform":"linux"}]}'
+      ) }}
 
     runs-on: ${{ matrix.os }}
 
