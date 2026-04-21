@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "pake:build": "pake-cli dist/index.html --name MathTugOfWar --use-local-file",
-    "pake:linux": "pake-cli dist/index.html --name MathTugOfWar --use-local-file --targets deb AppImage"
+    "pake:build": "pake dist/index.html --name MathTugOfWar --use-local-file",
+    "pake:linux": "pake dist/index.html --name MathTugOfWar --use-local-file --targets deb AppImage"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
