@@ -1,14 +1,24 @@
 name: Build App With Pake CLI
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build'
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - windows
+          - macos
+          - linux
 
 jobs:
   build:
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == matrix.platform }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
