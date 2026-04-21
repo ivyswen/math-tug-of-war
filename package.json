@@ -13,7 +13,6 @@
     "pake:linux": "pake-cli dist/index.html --name MathTugOfWar --use-local-file --targets deb AppImage"
   },
   "dependencies": {
-    "@google/genai": "^1.29.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "lucide-react": "^0.546.0",
@@ -32,6 +31,6 @@
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "@types/express": "^4.17.21",
-    "pake-cli": "^2.2.0"
+    "pake-cli": "^3.11.3"
   }
 }

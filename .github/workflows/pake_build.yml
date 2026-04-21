@@ -31,16 +31,13 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Vite project
         run: npm run build
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-
-      - name: Install Pake CLI
-        run: npm install -g pake-cli
 
       - name: Build with Pake (Linux)
         if: matrix.platform == 'linux'
