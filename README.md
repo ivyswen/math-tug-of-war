@@ -2,6 +2,11 @@
 
 这是把 `https://edugames.uz/game/arqon/` 复刻为 **React + Vite** 项目的版本。
 
+## 用户文档入口
+
+- 用户使用指南（kami 排版）：[`docs/kami/user-guide.html`](docs/kami/user-guide.html)
+- 适用对象：课堂教师、活动主持人、现场运维人员
+
 ## 技术栈
 
 - React 18
@@ -94,4 +99,3 @@ npm run build
 - 原始游戏脚本已适配为可在 React 挂载后初始化
 - Home 按钮回到本地根路径 `/`
 - 已加入基础渲染测试
-

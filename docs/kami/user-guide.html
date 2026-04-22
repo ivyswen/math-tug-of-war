@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<!-- ==================================================================
+     LONG DOCUMENT TEMPLATE · parchment design system
+     多页 A4 白皮书/技术报告/年度总结
+     结构：封面 -> 目录 -> 执行摘要 -> 正文章节 -> 附录
+     ================================================================== -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Math Tug of War 用户使用指南</title>
+<style>
+  /* Regular weight */
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("../fonts/TsangerJinKai02-W04.ttf") format("truetype"),
+       url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Bold weight - W05 for all bold variants */
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("../fonts/TsangerJinKai02-W05.ttf") format("truetype"),
+       url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @page {
+    size: A4;
+    margin: 20mm 22mm 22mm 22mm;
+    background: #f5f4ed;
+
+    @bottom-center {
+      content: counter(page) "  ·  Math Tug of War 用户使用指南";
+      font-family: "Source Han Serif SC", Georgia, serif;
+      font-size: 8.5pt;
+      color: #87867f;
+    }
+  }
+
+  @page:first {
+    @bottom-center { content: ""; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment: #f5f4ed;
+    --ivory:     #faf9f5;
+    --near-black:#141413;
+    --dark-warm: #3d3d3a;
+    --charcoal:  #4d4c48;
+    --olive:     #5e5d59;
+    --stone:     #87867f;
+    --brand:     #1B365D;
+    --border:    #e8e6dc;
+    --border-soft:#e5e3d8;
+    --tag-bg:    #E4ECF5;
+  }
+
+  html, body { background: var(--parchment); }
+
+  body {
+    color: var(--near-black);
+    font-family: "TsangerJinKai02", "Source Han Serif SC",
+                 "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  .sans {
+    font-family: "Source Han Sans SC", "Noto Sans CJK SC",
+                 -apple-system, "PingFang SC", Arial, sans-serif;
+  }
+
+  /* ========== COVER ========== */
+  .cover {
+    min-height: 240mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40mm 0 0 0;
+    break-after: page;
+  }
+  .cover-eyebrow {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    margin-bottom: 18pt;
+  }
+  .cover-title {
+    font-size: 36pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.15;
+    letter-spacing: 0.5pt;
+    margin-bottom: 16pt;
+  }
+  .cover-sub {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 14pt;
+    color: var(--olive);
+    line-height: 1.5;
+    max-width: 85%;
+    margin-bottom: 30pt;
+  }
+  .cover-meta {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 10pt;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+  .cover-meta strong {
+    color: var(--dark-warm);
+    font-weight: 500;
+  }
+
+  /* ========== TOC（目录）========== */
+  .toc { break-after: page; }
+  .toc h2 {
+    font-size: 22pt;
+    font-weight: 500;
+    margin-bottom: 14pt;
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+  }
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6pt 0;
+    border-bottom: 0.3pt dotted var(--border);
+    font-size: 11pt;
+  }
+  .toc-num {
+    color: var(--brand);
+    font-weight: 500;
+    min-width: 30pt;
+  }
+  .toc-title {
+    flex: 1;
+    color: var(--near-black);
+    padding-left: 6pt;
+  }
+  .toc-page {
+    color: var(--stone);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ========== HEADINGS ========== */
+  h1 {
+    font-size: 22pt;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 10pt 0;
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+    color: var(--near-black);
+    break-after: avoid;
+  }
+
+  h2 {
+    font-size: 15pt;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 24pt 0 6pt 0;
+    color: var(--near-black);
+    break-after: avoid;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 18pt 0 4pt 0;
+    color: var(--dark-warm);
+    break-after: avoid;
+  }
+
+  .chapter-num {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    margin-bottom: 6pt;
+  }
+
+  /* ========== PARAGRAPHS ========== */
+  p {
+    margin: 0 0 10pt 0;
+    line-height: 1.55;
+    color: var(--near-black);
+  }
+
+  .lead {
+    font-size: 12pt;
+    line-height: 1.55;
+    color: var(--dark-warm);
+    margin-bottom: 14pt;
+  }
+
+  .hl { color: var(--brand); font-weight: 500; }
+
+  /* ========== LISTS ========== */
+  ul, ol {
+    margin: 6pt 0 10pt 0;
+    padding-left: 20pt;
+    line-height: 1.55;
+  }
+  ul li::marker { color: var(--brand); }
+  ol li::marker { color: var(--brand); font-weight: 500; }
+
+  /* ========== QUOTE ========== */
+  blockquote, .quote {
+    border-left: 2pt solid var(--brand);
+    margin: 12pt 0;
+    padding: 4pt 0 4pt 16pt;
+    color: var(--olive);
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+  blockquote .cite, .quote .cite {
+    display: block;
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 4pt;
+  }
+
+  /* ========== CODE ========== */
+  code {
+    font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+    font-size: 9pt;
+    background: var(--ivory);
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+    color: var(--dark-warm);
+  }
+  pre {
+    font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    background: var(--ivory);
+    border: 0.5pt solid var(--border-soft);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 10pt 0;
+    white-space: pre-wrap;
+    color: var(--near-black);
+    break-inside: avoid;
+  }
+  pre code { background: transparent; padding: 0; font-size: inherit; }
+
+  /* ========== TABLE ========== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 12pt 0;
+    break-inside: avoid;
+  }
+  table th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--charcoal);
+    padding: 6pt 8pt;
+    border-bottom: 1pt solid var(--brand);
+    background: transparent;
+  }
+  table td {
+    padding: 5pt 8pt;
+    border-bottom: 0.3pt solid var(--border-soft);
+    vertical-align: top;
+  }
+
+  /* ========== CALLOUT ========== */
+  .callout {
+    background: var(--ivory);
+    border-left: 2pt solid var(--brand);
+    padding: 10pt 14pt;
+    border-radius: 3pt;
+    margin: 12pt 0;
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+
+  .takeaway {
+    background: var(--ivory);
+    border: 0.5pt solid var(--border);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 14pt 0;
+    break-inside: avoid;
+  }
+  .takeaway-label {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 8pt;
+    color: var(--brand);
+    letter-spacing: 0.5pt;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+  }
+
+  /* ========== TAG ========== */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1pt 6pt;
+    border-radius: 3pt;
+    margin-right: 4pt;
+  }
+
+  /* ========== FIGURE ========== */
+  figure {
+    margin: 14pt 0;
+    break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border-radius: 4pt;
+  }
+  figcaption {
+    font-family: "Source Han Sans SC", sans-serif;
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 6pt;
+    text-align: center;
+  }
+
+  /* ========== EXECUTIVE SUMMARY ========== */
+  .exec-summary {
+    background: var(--ivory);
+    border: 0.5pt solid var(--border);
+    border-radius: 6pt;
+    padding: 16pt 20pt;
+    margin: 14pt 0;
+    break-inside: avoid;
+  }
+  .exec-summary h2 {
+    margin-top: 0;
+    font-size: 13pt;
+  }
+
+  /* ========== CHAPTER BREAK ========== */
+  .chapter { break-before: page; }
+</style>
+</head>
+<body>
+
+<!-- ═════════════ COVER ═════════════ -->
+<section class="cover">
+  <div>
+    <div class="cover-eyebrow">产品文档 · 用户使用指南</div>
+    <div class="cover-title">Math Tug of War<br>用户使用指南</div>
+    <div class="cover-sub">面向教师、活动组织者与现场操作人员，说明如何启动、配置、主持并维护这套双人数学拔河对战应用。</div>
+  </div>
+  <div class="cover-meta">
+    <strong>math-tug-of-war 项目</strong><br>
+    版本 V1.0  ·  2026.04.22<br>
+    React + Vite 本地部署文档
+  </div>
+</section>
+
+<!-- ═════════════ 目录 ═════════════ -->
+<section class="toc">
+  <h2>目录</h2>
+  <div class="toc-item">
+    <span class="toc-num">01</span>
+    <span class="toc-title">执行摘要</span>
+    <span class="toc-page">03</span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">02</span>
+    <span class="toc-title">快速开始</span>
+    <span class="toc-page">04</span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">03</span>
+    <span class="toc-title">游戏流程与界面操作</span>
+    <span class="toc-page">06</span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">04</span>
+    <span class="toc-title">规则、题目与胜负判定</span>
+    <span class="toc-page">08</span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">05</span>
+    <span class="toc-title">资源替换、部署与常见问题</span>
+    <span class="toc-page">10</span>
+  </div>
+</section>
+
+<!-- ═════════════ Chapter 01：执行摘要 ═════════════ -->
+<section>
+  <div class="chapter-num">01 · Executive Summary</div>
+  <h1>执行摘要</h1>
+
+  <p class="lead">
+    Math Tug of War 是一款面向课堂、训练营和现场互动活动的 <span class="hl">双人数学竞速游戏</span>。操作者在开局前只需完成
+    <span class="hl">3 步配置</span>，系统就会自动开始倒计时、发题、计分、推动绳索，并在任一队伍达到胜利条件后展示获胜动画与结果面板。
+  </p>
+
+  <h2>核心 Takeaways</h2>
+  <ul>
+    <li>支持 <span class="hl">4 类运算</span> 组合出题：加、减、乘、除，可按课堂目标自由启用。</li>
+    <li>支持 <span class="hl">3 档难度</span>：简单为 1-10，中等为 10-50，困难为 30-100。</li>
+    <li>默认胜利条件为 <span class="hl">20 题抢先答对</span>，或绳索位移达到 <span class="hl">300 像素</span> 极限。</li>
+    <li>每次答对推进 <span class="hl">50 像素</span>，答错则按反方向回退约 <span class="hl">16.7 像素</span>。</li>
+  </ul>
+
+  <div class="takeaway">
+    <div class="takeaway-label">本文档回答的问题</div>
+    这套应用如何启动？主持人如何在现场完成配置并开始比赛？比赛过程中每个按钮和显示区域分别意味着什么？如果需要替换视频、音乐或语言资源，应修改哪些文件？
+  </div>
+</section>
+
+<!-- ═════════════ Chapter 02：快速开始 ═════════════ -->
+<section class="chapter">
+  <div class="chapter-num">02 · Quick Start</div>
+  <h1>快速开始</h1>
+
+  <p class="lead">
+    如果你第一次接触本项目，按本章顺序执行即可在本地浏览器中跑起来并进入可用状态。
+  </p>
+
+  <h2>适用场景</h2>
+  <p>本项目适合需要 <span class="hl">双队对抗</span>、<span class="hl">大屏展示</span> 和 <span class="hl">快速反复开局</span> 的教学或活动现场。典型使用方式包括小学数学竞赛、训练营暖场、机构公开课互动和展台引流。</p>
+
+  <h2>启动步骤</h2>
+  <ol>
+    <li>进入项目目录 <code>math-tug-of-war</code>。</li>
+    <li>首次运行安装依赖：<code>npm install</code>。</li>
+    <li>启动开发服务器：<code>npm run dev -- --host 127.0.0.1 --port 4174</code>。</li>
+    <li>浏览器打开 <code>http://127.0.0.1:4174/</code>。</li>
+  </ol>
+
+  <pre><code>npm install
+npm run dev -- --host 127.0.0.1 --port 4174</code></pre>
+
+  <h2>首次进入你会看到什么</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>区域</th>
+        <th>用途</th>
+        <th>操作者需要关注什么</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>顶部标题区</td>
+        <td>显示游戏标题与语言切换</td>
+        <td>确认当前语言是否正确，必要时切到中文或英文</td>
+      </tr>
+      <tr>
+        <td>中央配置弹窗</td>
+        <td>比赛开始前的三步设置</td>
+        <td>依次选择运算、难度、队名</td>
+      </tr>
+      <tr>
+        <td>左右答题面板</td>
+        <td>双方题目、输入框和数字键盘</td>
+        <td>比赛开始后只需在这里输入并提交答案</td>
+      </tr>
+      <tr>
+        <td>中间竞技区</td>
+        <td>展示绳索动画、比分和计时</td>
+        <td>主持人主要通过这里判断比赛节奏与领先方</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    默认情况下，如果队名留空，系统会自动使用 <code>Team 1</code> 与 <code>Team 2</code>。这意味着即使现场忘记录入名称，也不会阻塞开局。
+  </div>
+</section>
+
+<!-- ═════════════ Chapter 03：游戏流程与界面操作 ═════════════ -->
+<section class="chapter">
+  <div class="chapter-num">03 · Gameplay</div>
+  <h1>游戏流程与界面操作</h1>
+
+  <p class="lead">整场比赛从配置到结算是线性的，主持人不需要切页面，也不需要手动发题。</p>
+
+  <h2>开局流程</h2>
+  <h3>步骤 1：选择运算类型</h3>
+  <p>可同时启用一项或多项运算。至少要保留 <span class="hl">1 项</span> 运算，系统才允许进入下一步。适合复习单一知识点时只开一种运算，做综合对抗时同时开启多种运算。</p>
+
+  <h3>步骤 2：选择难度</h3>
+  <p>难度只影响随机数范围，不改变核心玩法。简单适合低年级热身，中等适合常规课堂竞赛，困难更适合训练营或熟练度较高的队伍。</p>
+
+  <h3>步骤 3：填写队伍名称</h3>
+  <p>左右两队分别对应 <span class="hl">蓝方</span> 与 <span class="hl">红方</span>。队名会同时显示在答题面板和中央比分栏中，便于大屏观众识别。</p>
+
+  <h2>开始比赛</h2>
+  <p>点击 <code>START GAME</code> 后，系统会执行一轮 <span class="hl">3 秒倒计时</span>，同时尝试播放背景音乐。倒计时结束显示 <code>GO</code>，随后双方答题区解锁并各自生成第一道题目。</p>
+
+  <h2>答题面板操作</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>控件</th>
+        <th>作用</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>数字按钮 0-9</td>
+        <td>逐位输入答案</td>
+        <td>输入框为只读，必须通过屏幕键盘录入</td>
+      </tr>
+      <tr>
+        <td>清除按钮</td>
+        <td>删除当前输入</td>
+        <td>适合输错后立即重输</td>
+      </tr>
+      <tr>
+        <td>提交按钮</td>
+        <td>校验本次答案</td>
+        <td>提交期间当前队伍会短暂锁定，避免重复点击</td>
+      </tr>
+      <tr>
+        <td>题目显示区</td>
+        <td>展示当前题干</td>
+        <td>系统会自动缩放字号，尽量避免长题目溢出</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>中央竞技区说明</h2>
+  <ul>
+    <li>顶部左、右两侧分别显示双方累计答对数量。</li>
+    <li>中央时钟从 <code>00:00</code> 开始累计，用于活动记录和赛后展示。</li>
+    <li>绳索向左移动代表蓝方占优，向右移动代表红方占优。</li>
+    <li>比赛结束后中央视频区域切换为对应胜方动画，覆盖原主场景。</li>
+  </ul>
+
+  <div class="takeaway">
+    <div class="takeaway-label">主持建议</div>
+    正式开始前，建议先做一次空场演练：确认语言、音乐、队名显示、大屏比例、全屏按钮和音量按钮都能正常工作，再让参赛者上场。
+  </div>
+</section>
+
+<!-- ═════════════ Chapter 04：规则、题目与胜负判定 ═════════════ -->
+<section class="chapter">
+  <div class="chapter-num">04 · Rules</div>
+  <h1>规则、题目与胜负判定</h1>
+
+  <p class="lead">本章覆盖使用者最关心的三件事：题目怎么出、分数怎么算、什么时候算赢。</p>
+
+  <h2>题目生成规则</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>难度</th>
+        <th>随机数范围</th>
+        <th>适用建议</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Easy</td>
+        <td>1-10</td>
+        <td>低年级、暖场、首次试玩</td>
+      </tr>
+      <tr>
+        <td>Medium</td>
+        <td>10-50</td>
+        <td>常规课堂竞赛</td>
+      </tr>
+      <tr>
+        <td>Hard</td>
+        <td>30-100</td>
+        <td>训练营、进阶挑战</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>不同运算使用不同出题策略。减法会自动交换两个数字顺序，避免出现负数结果；除法会先生成商，再反推被除数，因此题目默认保证能整除，不会要求玩家输入小数。</p>
+
+  <h2>计分与绳索位移</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>动作</th>
+        <th>分数变化</th>
+        <th>绳索变化</th>
+        <th>现场表现</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>答对</td>
+        <td>当前队伍 +1</td>
+        <td>向本队方向移动 50 像素</td>
+        <td>输入框短暂高亮为正确状态，并立即生成下一题</td>
+      </tr>
+      <tr>
+        <td>答错</td>
+        <td>不加分</td>
+        <td>向对手方向回退约 16.7 像素</td>
+        <td>输入框短暂抖动并清空，随后可继续作答</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>胜利判定</h2>
+  <ol>
+    <li>任一队伍率先答对 <span class="hl">20 题</span>，立即获胜。</li>
+    <li>如果绳索累计位移达到 <span class="hl">300 像素</span> 边界，也立即结束比赛。</li>
+    <li>若没有分数先到 20，则以绳索最终方向决定胜方：左侧为蓝方胜，右侧为红方胜。</li>
+  </ol>
+
+  <blockquote>
+    这套规则兼顾了「持续答对的稳定优势」和「短时间连续抢答带来的视觉冲击」。分数决定明确，位移决定气氛，二者叠加使比赛更适合公开展示。
+    <span class="cite">- 基于 `src/lib/gameEngine.js` 与 `public/game/arqon/script.js` 的默认配置整理</span>
+  </blockquote>
+</section>
+
+<!-- ═════════════ Chapter 05：资源替换、部署与常见问题 ═════════════ -->
+<section class="chapter">
+  <div class="chapter-num">05 · Operations</div>
+  <h1>资源替换、部署与常见问题</h1>
+
+  <p class="lead">如果你不只是在现场使用，而是需要长期维护、定制素材或重新打包，请直接从本章开始操作。</p>
+
+  <h2>替换视频资源</h2>
+  <p>保持文件名不变，直接替换以下素材即可：</p>
+  <ul>
+    <li><code>public/game/assets/media/main.mp4</code>：主场景循环视频</li>
+    <li><code>public/game/assets/media/win_blue.mp4</code>：蓝方胜利视频</li>
+    <li><code>public/game/assets/media/win_red.mp4</code>：红方胜利视频</li>
+  </ul>
+
+  <h2>替换音频资源</h2>
+  <p>默认音频列表定义在 <code>src/config/audioPanelConfig.js</code>。若仅替换文件内容，保持以下路径不变即可：</p>
+  <ul>
+    <li><code>public/game/assets/audio/audio.mp3</code></li>
+    <li><code>public/game/assets/audio/audio-1.mp3</code></li>
+  </ul>
+
+  <h2>构建与发布</h2>
+  <pre><code>npm run build
+npm run preview
+npm test</code></pre>
+
+  <p>构建产物输出到 <code>dist/</code>。如果需要桌面打包，可继续使用 <code>pake:build</code> 或 <code>pake:linux</code> 脚本，将静态页面封装为桌面程序。</p>
+
+  <h2>常见问题</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>问题</th>
+        <th>可能原因</th>
+        <th>处理建议</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>点击开始后没有声音</td>
+        <td>浏览器拦截自动播放</td>
+        <td>先与页面发生一次交互，或通过右下角静音按钮重新启用音频</td>
+      </tr>
+      <tr>
+        <td>题目看起来过长</td>
+        <td>大数字或乘除组合导致宽度增加</td>
+        <td>系统已内置字号自适应，仍不合适时建议降低难度或缩短显示区域外部缩放</td>
+      </tr>
+      <tr>
+        <td>想改默认语言</td>
+        <td>页面初始化为英文</td>
+        <td>检查 <code>src/hooks/useLegacyGameBoot.js</code> 和 <code>public/game/arqon/i18n.js</code> 的默认值</td>
+      </tr>
+      <tr>
+        <td>想新增第三首音乐</td>
+        <td>仅替换文件不够</td>
+        <td>需要在 <code>src/config/audioPanelConfig.js</code> 中新增一条音频配置</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Call to Action</div>
+    如果这份指南要交给一线教师或活动执行人员使用，建议再补一页「赛前检查单」：网络是否关闭、浏览器是否全屏、音量是否合适、语言是否正确、视频是否加载完毕、备用设备是否到位。
+  </div>
+</section>
+
+<!-- ═════════════ Appendix ═════════════ -->
+<section class="chapter">
+  <div class="chapter-num">06 · Appendix</div>
+  <h1>附录</h1>
+
+  <h2>A. 关键文件索引</h2>
+  <ul>
+    <li><code>README.md</code>：项目概览与基础启动说明</li>
+    <li><code>src/App.jsx</code>：运行时主流程，负责开局、倒计时、计时与提交判定</li>
+    <li><code>src/components/SetupModal.jsx</code>：开局配置界面</li>
+    <li><code>src/components/GameShell.jsx</code>：比赛主界面与胜利展示</li>
+    <li><code>src/lib/gameEngine.js</code>：题目生成、位移、判胜等纯逻辑</li>
+    <li><code>src/config/audioPanelConfig.js</code>：背景音乐列表与默认音频</li>
+  </ul>
+
+  <h2>B. 术语表</h2>
+  <p><strong>Setup Modal</strong>：比赛开始前的配置弹窗，包含运算、难度、队名三步。</p>
+  <p><strong>Runtime State</strong>：React 运行时状态，记录比分、题目、输入、倒计时和胜利信息。</p>
+  <p><strong>Win Limit</strong>：绳索位移终点阈值，默认值为 300。</p>
+  <p><strong>Win By Score</strong>：按分数直接获胜的阈值，默认值为 20。</p>
+
+  <h2>C. 说明</h2>
+  <p>本指南根据当前仓库代码与默认配置编写。若后续修改难度区间、音频列表、胜利阈值或界面结构，应同步更新本文档，避免现场执行口径与实际行为不一致。</p>
+</section>
+
+</body>
+</html>
